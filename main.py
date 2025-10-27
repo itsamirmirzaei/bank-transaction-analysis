@@ -71,3 +71,41 @@ class BankTransactionAnalyzer:
         print(f"Data range: {self.df['date'].min().date()} to {self.df['date'].max()}")
         
         return self
+    
+    def analyze_by_category(self):
+        """Analyze spending by category."""
+        print("\n" + "=" * 50)
+        print("Category Analysis")
+        print("=" * 50)
+        
+        # Separate income and expense
+        expenses = self.df[self.df['amount'] < 0].copy()
+        income = self.df[self.df['amount'] > 0].copy()
+        
+        # Category summary by expenses
+        self.category_summary = expenses.groupby('category').agg(
+            {
+                'abs_amount': ['sum', 'mean', 'count'],
+                'description': 'count'
+            }
+        ).round(2)
+        
+        self.category_summary.columns = ['total_spent', 'avg_transaction',
+                                         'transaction_count', 'descriptions']
+        
+        self.category_summary = self.category_summary.sort_values(
+            'total_spent', ascending=False
+        )
+        
+        print("\nExpense summary by category: ")
+        print(self.category_summary)
+        
+        # Calculate percentage of total spending
+        total_expense = expenses['abs_amount'].sum()
+        self.category_summary['percentage'] = (
+            (self.category_summary['total_spent'] / total_expense) * 100
+        ).round(2)
+        
+        print("\nTop 5 Spending Categories: ")
+        print(self.category_summary.head(5))
+        
