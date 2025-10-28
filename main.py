@@ -109,3 +109,48 @@ class BankTransactionAnalyzer:
         print("\nTop 5 Spending Categories: ")
         print(self.category_summary.head(5))
         
+    def calculate_monthly_balance(self):
+        """Calculate monthly income, expenses, and balance."""
+        print("\n" + "=" * 50)
+        print("Monthly Balance Analysis")
+        print("=" * 50)
+        
+        # Group by year and month
+        self.monthly_summary = self.df.groupby(['year_month']).agg(
+            {
+                'amount': [
+                    lambda x: x[x > 0].sum(),  # Total income
+                    lambda x: x[x < 0].sum(),  # Total expenses
+                    'sum'                      # Net balance
+                ]
+            }
+        ).round(2)
+        
+        self.monthly_summary.columns = ['total_income', 'total_expenses', 'net_balance']
+        
+        # Calculate absolute values for expenses
+        self.monthly_summary['total_expenses_abs'] = self.monthly_summary['total_expenses'].abs()
+        
+        # Calculate savings rate
+        self.monthly_summary['savings_rate'] = (
+            (self.monthly_summary['net_balance'] / self.monthly_summary['total_income']) * 100
+        ).round(2)
+        
+        # Calculate cumulative balance
+        self.monthly_summary['cumulative_balance'] = self.monthly_summary['net_balance'].cumsum()
+        
+        print("\nMonthly Summary: ")
+        print(self.monthly_summary)
+        
+        # Overall statistics
+        print("\n" + "=" * 50)
+        print("Overall Statistics")
+        print("=" * 50)
+        print(f"Average Monthly Income: ${self.monthly_summary['total_income'].mean():,.2f}")
+        print(f"Average Monthly Expenses: ${self.monthly_summary['total_expenses_abs'].mean():,.2f}")
+        print(f"Average Monthly Savings: ${self.monthly_summary['net_balance'].mean():,.2f}")
+        print(f"Average Savings Rate: ${self.monthly_summary['savings_rate'].mean():,.2f}%")
+        
+        return self
+    
+    
