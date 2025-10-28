@@ -185,3 +185,50 @@ class BankTransactionAnalyzer:
         print(most_expensive)
         
         return self
+    
+    def filter_transactions(self, **kwargs):
+        """
+        Filter transactions based on various criteria.
+        
+        Args:
+        **kwargs: Filter parameters (category, min_amount, max_amount, 
+        start_date, end_date, transaction_type, description_contains)
+        
+        Returns:
+        DataFrame Filtered transactions
+        """
+        filtered = self.df.copy()
+        
+        # Filter by category
+        if 'category' in kwargs:
+            filtered = filtered[filtered['category'] == kwargs['category']]
+            
+        # Filter by amount range
+        if 'min_amount' in kwargs:
+            filtered = filtered[filtered['amount'] >= kwargs['min_amount']]
+        if 'max_amount' in kwargs:
+            filtered = filtered[filtered['amount'] <= kwargs['max_amount']]
+            
+        # Filter by date range
+        if 'start_date' in kwargs:
+            start = pd.to_datetime(kwargs['start_date'])
+            filtered = filtered[filtered['date'] >= start]
+        if 'end_date' in kwargs:
+            end = pd.to_datetime(kwargs['end_date'])
+            filtered = filtered[filtered['date'] <= end]
+            
+        # Filter by transaction type
+        if 'transaction_type' in kwargs:
+            filtered = filtered[filtered['transaction_type'] == kwargs['transaction_type']]
+            
+        # Filter by description
+        if 'description_contains' in kwargs:
+            filtered = filtered[
+                filtered['description'].str.contains(
+                    kwargs['description_contains'],
+                    case=False,
+                    na=False
+                )
+            ]
+        
+        return filtered
