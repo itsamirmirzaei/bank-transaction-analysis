@@ -153,4 +153,35 @@ class BankTransactionAnalyzer:
         
         return self
     
-    
+    def analyze_spending_patterns(self):
+        """Analyze spending patterns by day of week and time."""
+        print("\n" + "=" * 50)
+        print("Spending Patterns Analysis")
+        print("=" * 50)
+        
+        expenses = self.df[self.df['amount'] < 0].copy()
+        
+        # Spending by day of week
+        day_spending = expenses.groupby('day_of_week')['abs_amount'].agg(
+            [
+                'sum', 'mean', 'count'
+            ]
+        ).round(2)
+        day_spending.columns = ['total', 'average', 'count']
+        
+        # Reorder days
+        days_order = ['monday', 'tuesday', 'wednesday', 'thursday',
+                      'friday', 'saturday', 'sunday']
+        day_spending = day_spending.reindex(days_order)
+        
+        print("\nSpending by Day of Week: ")
+        print(day_spending)
+        
+        # Most expensive transaction per category
+        print("\nMost Expensive Transaction per Category: ")
+        most_expensive = expenses.loc[
+            expenses.groupby('category')['abs_amount'].idxmax()
+        ][['category', 'description', 'abs_amount', 'date']]
+        print(most_expensive)
+        
+        return self
