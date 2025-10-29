@@ -232,3 +232,17 @@ class BankTransactionAnalyzer:
             ]
         
         return filtered
+    
+    def query_transactions(self, query_str):
+        """
+        Query transactions using pandas query syntax.
+        
+        Args:
+        query_str (str): pandas query string.
+        
+        Returns:
+        DataFrame: Queried transactions
+        """
+        return self.df.query(query_str)
+    
+    
