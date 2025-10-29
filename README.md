@@ -1,10 +1,4 @@
 # Bank Transaction Analyzer  
-[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)](https://www.python.org)
-[![Pandas](https://img.shields.io/badge/Pandas-2.0%2B-green?logo=pandas)](https://pandas.pydata.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub issues](https://img.shields.io/github/issues/yourusername/bank-transaction-analyzer)](https://github.com/yourusername/bank-transaction-analyzer/issues)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/bank-transaction-analyzer)](https://github.com/yourusername/bank-transaction-analyzer/network)
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/bank-transaction-analyzer)](https://github.com/yourusername/bank-transaction-analyzer/stargazers)
 
 > **A clean, production-ready personal bank transaction analyzer in Python.**  
 > Auto-detects CSV, cleans data, detects anomalies, and exports insights.
