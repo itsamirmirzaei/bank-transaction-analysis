@@ -1,0 +1,2 @@
+Date_raw,Account,Category_raw,Subcategory,Note,INR,Income/Expense,Note.1,amount_raw,Currency,Account.1,Date,amount,Category,year,month,day_of_week,year_month,transaction_type,abs_amount
+1/6/2022 20:13,CUB - online payment,Food,,Dinner with roommate,877.81,Expense,,877.81,INR,877.81,2022-06-01 20:13:00,-877.81,Food,2022,6,Wednesday,2022-06,expense,877.81
