@@ -45,19 +45,3 @@ or transactions.csv in project root
 
 3. Run:
 python main.py
-
----
-
-# Example Console Output
-============================================================
-BANK ANALYZER - FINAL VERSION
-============================================================
-
-14:22:01 | INFO     | Data: data/transactions.csv
-14:22:01 | INFO     | Loaded 1,284 rows
-...
-14:22:05 | WARNING  | Found 3 anomalous transaction(s)
-
-SUCCESS!
-Outputs: /path/to/outputs
-Summary: {'total': 1240, 'income': 285000.0, 'expense': -182400.0, 'net': 102600.0}
